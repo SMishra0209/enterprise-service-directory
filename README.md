@@ -20,8 +20,8 @@ Backend for an enterprise service directory. It tracks **teams** and the **servi
 ## Run locally
 
 ```bash
-git clone https://github.com/<SMishra0209>/service-directory.git
-cd service-directory
+git clone https://github.com/SMishra0209/service-directory.git
+cd enterprise-service-directory
 docker compose up -d
 ./mvnw spring-boot:run
 ```
