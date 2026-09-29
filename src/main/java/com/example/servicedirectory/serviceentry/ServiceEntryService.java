@@ -6,6 +6,8 @@ import com.example.servicedirectory.common.ResourceNotFoundException;
 import com.example.servicedirectory.team.Team;
 import com.example.servicedirectory.team.TeamRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,12 @@ public class ServiceEntryService {
 
     public List<ServiceEntryResponse> findAll() {
         return serviceEntryRepository.findAll().stream().map(ServiceEntryResponse::from).toList();
+    }
+
+    public Page<ServiceEntryResponse> search(String name, ServiceStatus status, ServiceEnvironment environment,
+                                             Long teamId, Pageable pageable) {
+        var spec = ServiceEntrySpecifications.filterBy(name, status, environment, teamId);
+        return serviceEntryRepository.findAll(spec, pageable).map(ServiceEntryResponse::from);
     }
 
     public ServiceEntryResponse findById(Long id) {
