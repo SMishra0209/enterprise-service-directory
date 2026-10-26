@@ -11,7 +11,7 @@ public class ServiceEntrySpecifications {
 
     public static Specification<ServiceEntry> nameContains(String name) {
         if (!StringUtils.hasText(name)) {
-            return null; // ignored by Specification.allOf/and-chaining below
+            return (root, query, cb) -> cb.conjunction(); // ignored by Specification.allOf/and-chaining below
         }
         return (root, query, cb) ->
                 cb.like(cb.lower(root.get("name")), "%" + name.toLowerCase() + "%");
@@ -19,21 +19,21 @@ public class ServiceEntrySpecifications {
 
     public static Specification<ServiceEntry> hasStatus(ServiceStatus status) {
         if (status == null) {
-            return null;
+            return (root, query, cb) -> cb.conjunction();
         }
         return (root, query, cb) -> cb.equal(root.get("status"), status);
     }
 
     public static Specification<ServiceEntry> hasEnvironment(ServiceEnvironment environment) {
         if (environment == null) {
-            return null;
+            return (root, query, cb) -> cb.conjunction();
         }
         return (root, query, cb) -> cb.equal(root.get("environment"), environment);
     }
 
     public static Specification<ServiceEntry> hasTeamId(Long teamId) {
         if (teamId == null) {
-            return null;
+            return (root, query, cb) -> cb.conjunction();
         }
         return (root, query, cb) -> cb.equal(root.get("team").get("id"), teamId);
     }

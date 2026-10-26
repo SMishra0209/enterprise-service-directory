@@ -11,3 +11,6 @@ spring:
       ddl-auto: none
   flyway:
     enabled: true
+
+server:
+  port: 8081
